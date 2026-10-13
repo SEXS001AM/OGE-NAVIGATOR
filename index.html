@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОГЭ Навигатор</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b1020;
+  color:#f4f5ff;
+}
+header{
+  padding:22px 7%;
+  border-bottom:1px solid #293047;
+  font-size:22px;
+  font-weight:bold;
+}
+header span{color:#9c8cff}
+.hero{
+  max-width:1000px;
+  margin:auto;
+  padding:85px 24px 55px;
+  text-align:center;
+}
+.badge{
+  display:inline-block;
+  padding:9px 15px;
+  border:1px solid #49416f;
+  border-radius:30px;
+  color:#c4baff;
+  font-size:13px;
+}
+h1{
+  font-size:clamp(36px,6vw,64px);
+  line-height:1.1;
+  margin:25px 0;
+}
+.gradient{
+  background:linear-gradient(90deg,#a895ff,#77caff);
+  color:transparent;
+  background-clip:text;
+}
+.hero p{
+  max-width:600px;
+  margin:0 auto 28px;
+  color:#aab3ca;
+  font-size:17px;
+  line-height:1.7;
+}
+.button{
+  display:inline-block;
+  background:#8775f5;
+  color:white;
+  padding:14px 23px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px 24px 70px;
+}
+h2{font-size:30px}
+.subtitle{color:#aab3ca}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  margin-top:28px;
+}
+.card{
+  display:block;
+  padding:25px;
+  border:1px solid #293047;
+  border-radius:20px;
+  background:#121a2e;
+  color:white;
+  text-decoration:none;
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:#8775f5;
+}
+.icon{font-size:34px}
+.card h3{font-size:23px;margin:15px 0 8px}
+.card p{color:#aab3ca;line-height:1.6}
+.label{
+  display:inline-block;
+  color:#8ce3bd;
+  font-size:12px;
+  margin-top:10px;
+}
+footer{
+  text-align:center;
+  padding:25px;
+  color:#8791a9;
+  border-top:1px solid #293047;
+  font-size:13px;
+}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .hero{padding-top:60px}
+  h2{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<header>🧭 ОГЭ <span>Навигатор</span></header>
+
+<section class="hero">
+  <div class="badge">✦ Твой путь к уверенному результату</div>
+  <h1>Подготовка к ОГЭ,<br>
+    <span class="gradient">которая работает на тебя</span>
+  </h1>
+  <p>
+    Тренируйся в своём темпе, разбирай ошибки
+    и постепенно превращай сложные задания в понятные.
+  </p>
+  <a class="button" href="#subjects">Выбрать предмет →</a>
+</section>
+
+<main class="container" id="subjects">
+  <h2>Выбери свой предмет</h2>
+  <p class="subtitle">Твой учебный маршрут начинается здесь.</p>
+
+  <div class="grid">
+    <a class="card" href="geography.html">
+      <div class="icon">🌍</div>
+      <h3>География</h3>
+      <p>Карты, страны, климат и практические задания ОГЭ.</p>
+      <span class="label">Первый раздел в разработке →</span>
+    </a>
+
+    <a class="card" href="#" onclick="alert('Раздел русского языка скоро появится!');return false">
+      <div class="icon">📚</div>
+      <h3>Русский язык</h3>
+      <p>Орфография, пунктуация и подготовка к экзамену.</p>
+      <span class="label">Скоро появится</span>
+    </a>
+
+    <a class="card" href="#" onclick="alert('Раздел математики скоро появится!');return false">
+      <div class="icon">📐</div>
+      <h3>Математика</h3>
+      <p>Алгебра, геометрия и решение экзаменационных задач.</p>
+      <span class="label">Скоро появится</span>
+    </a>
+
+    <a class="card" href="#" onclick="alert('Раздел физики скоро появится!');return false">
+      <div class="icon">⚛️</div>
+      <h3>Физика</h3>
+      <p>Формулы, законы природы и задачи с объяснениями.</p>
+      <span class="label">Скоро появится</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  ОГЭ Навигатор · Учись в своём темпе · 2026
+</footer>
+
+</body>
+</html>
