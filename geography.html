@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>География — ОГЭ Навигатор</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#f4f5ff;font-family:Arial,sans-serif}
+header{padding:20px 7%;border-bottom:1px solid #293047;font-weight:bold;font-size:21px}
+header span{color:#9c8cff}
+main{max-width:850px;margin:45px auto;padding:0 20px}
+a{color:#b9adff;text-decoration:none}
+a:hover{text-decoration:underline}
+.tag{color:#9c8cff;font-size:12px;letter-spacing:2px;font-weight:bold}
+h1{font-size:clamp(32px,6vw,48px);margin:12px 0}
+p{color:#b5bfd5;line-height:1.7}
+.card{margin-top:25px;padding:25px;border:1px solid #293047;border-radius:18px;background:#121a2e}
+button{padding:13px 18px;border:0;border-radius:10px;background:#8775f5;color:white;font-weight:bold;cursor:pointer}
+.option{display:block;width:100%;text-align:left;margin:10px 0;background:#19243b;border:1px solid #34415e}
+.option.chosen{border-color:#aa9bff;background:#29264b}
+#feedback{margin-top:18px;padding:14px;border-radius:10px;line-height:1.6}
+footer{text-align:center;color:#7885a1;padding:30px;font-size:13px}
+</style>
+</head>
+<body>
+<header>🧭 ОГЭ <span>Навигатор</span></header>
+<main>
+<a href="index.html">← На главную</a>
+<p class="tag">ПРЕДМЕТ · 01</p>
+<h1>🌍 География</h1>
+<p>Изучай карты, природные процессы, население и хозяйство России. Начнём с небольшого задания, а затем расширим тренажёр.</p>
+
+<section class="card">
+<p class="tag">ПЕРВОЕ ЗАДАНИЕ</p>
+<h2>Какой океан омывает восточное побережье России?</h2>
+<div id="options">
+<button class="option" onclick="answer(0)">А. Атлантический</button>
+<button class="option" onclick="answer(1)">Б. Индийский</button>
+<button class="option" onclick="answer(2)">В. Тихий</button>
+<button class="option" onclick="answer(3)">Г. Северный Ледовитый</button>
+</div>
+<div id="feedback"></div>
+<button onclick="resetTask()" style="margin-top:12px">Попробовать ещё раз</button>
+</section>
+
+<section class="card">
+<h2>Что появится дальше?</h2>
+<p>Тренировка по карте России, климатические диаграммы, природные зоны, население и экономика. Позже добавим статистику результатов и подбор заданий по твоим ошибкам.</p>
+</section>
+</main>
+<footer>ОГЭ Навигатор · Учись в своём темпе</footer>
+<script>
+function answer(n){
+ const f=document.getElementById('feedback');
+ if(n===2){
+  f.textContent='Верно! Восточное побережье России омывает Тихий океан. Молодец!';
+  f.style.background='#15382f';
+ }else{
+  f.textContent='Пока неверно. Подсказка: этот океан находится между Азией и Северной Америкой.';
+  f.style.background='#40232d';
+ }
+ document.querySelectorAll('.option').forEach((b,i)=>{
+  b.classList.toggle('chosen',i===n);
+ });
+}
+function resetTask(){
+ document.getElementById('feedback').textContent='';
+ document.querySelectorAll('.option').forEach(b=>b.classList.remove('chosen'));
+}
+</script>
+</body>
+</html>
