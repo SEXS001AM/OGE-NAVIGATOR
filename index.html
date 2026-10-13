@@ -1,168 +1,1022 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ОГЭ Навигатор</title>
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b1020;
-  color:#f4f5ff;
-}
-header{
-  padding:22px 7%;
-  border-bottom:1px solid #293047;
-  font-size:22px;
-  font-weight:bold;
-}
-header span{color:#9c8cff}
-.hero{
-  max-width:1000px;
-  margin:auto;
-  padding:85px 24px 55px;
-  text-align:center;
-}
-.badge{
-  display:inline-block;
-  padding:9px 15px;
-  border:1px solid #49416f;
-  border-radius:30px;
-  color:#c4baff;
-  font-size:13px;
-}
-h1{
-  font-size:clamp(36px,6vw,64px);
-  line-height:1.1;
-  margin:25px 0;
-}
-.gradient{
-  background:linear-gradient(90deg,#a895ff,#77caff);
-  color:transparent;
-  background-clip:text;
-}
-.hero p{
-  max-width:600px;
-  margin:0 auto 28px;
-  color:#aab3ca;
-  font-size:17px;
-  line-height:1.7;
-}
-.button{
-  display:inline-block;
-  background:#8775f5;
-  color:white;
-  padding:14px 23px;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:bold;
-}
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:20px 24px 70px;
-}
-h2{font-size:30px}
-.subtitle{color:#aab3ca}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:18px;
-  margin-top:28px;
-}
-.card{
-  display:block;
-  padding:25px;
-  border:1px solid #293047;
-  border-radius:20px;
-  background:#121a2e;
-  color:white;
-  text-decoration:none;
-  transition:.2s;
-}
-.card:hover{
-  transform:translateY(-4px);
-  border-color:#8775f5;
-}
-.icon{font-size:34px}
-.card h3{font-size:23px;margin:15px 0 8px}
-.card p{color:#aab3ca;line-height:1.6}
-.label{
-  display:inline-block;
-  color:#8ce3bd;
-  font-size:12px;
-  margin-top:10px;
-}
-footer{
-  text-align:center;
-  padding:25px;
-  color:#8791a9;
-  border-top:1px solid #293047;
-  font-size:13px;
-}
-@media(max-width:600px){
-  .grid{grid-template-columns:1fr}
-  .hero{padding-top:60px}
-  h2{font-size:26px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <title>ОГЭ Навигатор</title>
+  <style>
+    :root {
+      --blue: #315bea;
+      --blue-light: #edf2ff;
+      --navy: #17233d;
+      --text: #202b40;
+      --muted: #8490a3;
+      --bg: #f7f8fb;
+      --border: #e9edf3;
+      --white: #ffffff;
+      --green: #19856b;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    button, a { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    button {
+      cursor: pointer;
+    }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 244px;
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      padding: 28px 17px;
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 8px;
+      margin-bottom: 40px;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      background: var(--blue);
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 750;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-caption {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .nav-label {
+      color: #a0a9b8;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      padding: 0 12px;
+      margin-bottom: 10px;
+    }
+
+    .nav {
+      display: grid;
+      gap: 5px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 45px;
+      padding: 0 12px;
+      border-radius: 10px;
+      color: #657187;
+      transition: background .15s, color .15s;
+    }
+
+    .nav-link:hover {
+      background: #f5f7fc;
+      color: var(--text);
+    }
+
+    .nav-link.active {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-weight: 650;
+    }
+
+    .nav-icon {
+      width: 21px;
+      text-align: center;
+      font-size: 17px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding-top: 17px;
+    }
+
+    .profile-mini {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 8px;
+    }
+
+    .avatar {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      background: #e9edff;
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-weight: 750;
+    }
+
+    .profile-name { font-weight: 650; }
+    .profile-caption {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .main {
+      margin-left: 244px;
+      min-height: 100vh;
+      padding: 35px 42px 45px;
+      max-width: 1700px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .date-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .icon-button, .menu-button {
+      border: 1px solid var(--border);
+      background: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    .menu-button { display: none; }
+
+    .welcome {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 34px);
+      letter-spacing: -1.2px;
+      line-height: 1.2;
+    }
+
+    .welcome p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 12px 0 0;
+    }
+
+    .exam-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      min-width: 190px;
+    }
+
+    .small-label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .exam-value {
+      font-size: 25px;
+      font-weight: 750;
+      letter-spacing: -0.7px;
+      margin: 9px 0 5px;
+    }
+
+    .exam-note {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 16px;
+    }
+
+    h2 {
+      font-size: 18px;
+      letter-spacing: -0.4px;
+      margin: 0;
+    }
+
+    .section-link {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .subject-card {
+      display: block;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 19px;
+      min-width: 0;
+      transition: transform .15s, border-color .15s;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5ff;
+    }
+
+    .subject-symbol {
+      width: 43px;
+      height: 43px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+      margin-bottom: 19px;
+    }
+
+    .geo { background: #e9f7f0; }
+    .rus { background: #fff0eb; }
+    .math { background: #edf0ff; }
+    .phys { background: #fff5dc; }
+
+    .subject-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .subject-subtitle {
+      color: var(--muted);
+      font-size: 11px;
+      min-height: 28px;
+      line-height: 1.5;
+    }
+
+    .subject-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-top: 19px;
+      padding-top: 13px;
+      border-top: 1px solid #f0f2f6;
+    }
+
+    .subject-bottom span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .subject-bottom strong {
+      font-size: 12px;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr);
+      gap: 17px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 23px;
+      min-width: 0;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 21px;
+    }
+
+    .tag {
+      color: var(--blue);
+      background: var(--blue-light);
+      padding: 6px 9px;
+      border-radius: 7px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .lesson {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 0;
+      border-top: 1px solid #f0f2f6;
+    }
+
+    .lesson-symbol {
+      flex-shrink: 0;
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      background: var(--blue-light);
+      border-radius: 12px;
+      font-size: 19px;
+    }
+
+    .lesson-info { flex: 1; min-width: 0; }
+    .lesson-title { font-weight: 650; font-size: 13px; }
+    .lesson-subtitle {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    .primary-button {
+      border: 0;
+      background: var(--blue);
+      color: white;
+      border-radius: 10px;
+      padding: 11px 15px;
+      font-size: 12px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .primary-button:hover { background: #244bd0; }
+
+    .secondary-button {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: white;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 12px;
+    }
+
+    .streak-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 8px 0 20px;
+    }
+
+    .streak-number {
+      font-size: 43px;
+      line-height: 1;
+      font-weight: 750;
+      letter-spacing: -2px;
+    }
+
+    .streak-caption {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    .week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 7px;
+      margin: 22px 0;
+    }
+
+    .day {
+      text-align: center;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .day-dot {
+      width: 29px;
+      height: 29px;
+      margin: 9px auto 0;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: #f1f3f7;
+      color: #9aa4b4;
+      font-size: 11px;
+    }
+
+    .day-dot.today {
+      background: var(--blue-light);
+      color: var(--blue);
+      outline: 1px solid #ccd7ff;
+    }
+
+    .streak-message {
+      background: #f7f9ff;
+      color: #5c6d93;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 17px;
+    }
+
+    .stat-value {
+      font-size: 27px;
+      font-weight: 750;
+      letter-spacing: -0.8px;
+      margin: 19px 0 7px;
+    }
+
+    .stat-description {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .empty-event {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      color: #a1a9b7;
+      font-size: 11px;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      max-width: calc(100vw - 44px);
+      background: var(--navy);
+      color: white;
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: 0 8px 30px #17233d22;
+      z-index: 30;
+    }
+
+    .toast[hidden] { display: none; }
+
+    @media (max-width: 1100px) {
+      .main { padding: 28px 25px; }
+      .subjects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .bottom-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        width: 244px;
+        transform: translateX(-100%);
+        transition: transform .2s;
+        box-shadow: none;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 15px 0 40px #17233d18;
+      }
+
+      .main { margin-left: 0; padding: 22px 16px 32px; }
+      .menu-button { display: block; }
+      .topbar { margin-bottom: 28px; }
+      .welcome { align-items: stretch; flex-direction: column; }
+      .exam-card { min-width: 0; }
+      .dashboard-grid, .bottom-grid { grid-template-columns: 1fr; }
+      .subjects { gap: 10px; }
+      .subject-card { padding: 14px; }
+      .subject-symbol { margin-bottom: 13px; }
+      .subject-subtitle { min-height: 33px; }
+      .panel { padding: 18px; }
+      .date-label { display: none; }
+      .lesson { flex-wrap: wrap; }
+      .lesson .primary-button { margin-left: 57px; }
+    }
+
+    @media (max-width: 360px) {
+      .subjects { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
-
-<header>🧭 ОГЭ <span>Навигатор</span></header>
-
-<section class="hero">
-  <div class="badge">✦ Твой путь к уверенному результату</div>
-  <h1>Подготовка к ОГЭ,<br>
-    <span class="gradient">которая работает на тебя</span>
-  </h1>
-  <p>
-    Тренируйся в своём темпе, разбирай ошибки
-    и постепенно превращай сложные задания в понятные.
-  </p>
-  <a class="button" href="#subjects">Выбрать предмет →</a>
-</section>
-
-<main class="container" id="subjects">
-  <h2>Выбери свой предмет</h2>
-  <p class="subtitle">Твой учебный маршрут начинается здесь.</p>
-
-  <div class="grid">
-    <a class="card" href="geography.html">
-      <div class="icon">🌍</div>
-      <h3>География</h3>
-      <p>Карты, страны, климат и практические задания ОГЭ.</p>
-      <span class="label">Первый раздел в разработке →</span>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="index.html" aria-label="ОГЭ Навигатор — главная">
+      <div class="brand-icon">О</div>
+      <div>
+        <div class="brand-name">ОГЭ Навигатор</div>
+        <div class="brand-caption">Твой путь к результату</div>
+      </div>
     </a>
 
-    <a class="card" href="#" onclick="alert('Раздел русского языка скоро появится!');return false">
-      <div class="icon">📚</div>
-      <h3>Русский язык</h3>
-      <p>Орфография, пунктуация и подготовка к экзамену.</p>
-      <span class="label">Скоро появится</span>
-    </a>
+    <div class="nav-label">МЕНЮ</div>
+    <nav class="nav" aria-label="Главная навигация">
+      <a class="nav-link active" href="index.html">
+        <span class="nav-icon">⌂</span> Главная
+      </a>
+      <a class="nav-link" href="geography.html">
+        <span class="nav-icon">◎</span> География
+      </a>
+      <a class="nav-link" href="#russian" data-soon="Русский язык">
+        <span class="nav-icon">А</span> Русский язык
+      </a>
+      <a class="nav-link" href="#math" data-soon="Математика">
+        <span class="nav-icon">＋</span> Математика
+      </a>
+      <a class="nav-link" href="#physics" data-soon="Физика">
+        <span class="nav-icon">ϟ</span> Физика
+      </a>
+    </nav>
 
-    <a class="card" href="#" onclick="alert('Раздел математики скоро появится!');return false">
-      <div class="icon">📐</div>
-      <h3>Математика</h3>
-      <p>Алгебра, геометрия и решение экзаменационных задач.</p>
-      <span class="label">Скоро появится</span>
-    </a>
+    <div class="sidebar-bottom">
+      <nav class="nav" aria-label="Настройки">
+        <a class="nav-link" href="#profile" data-soon="Профиль">
+          <span class="nav-icon">♙</span> Профиль
+        </a>
+        <a class="nav-link" href="#settings" data-soon="Настройки">
+          <span class="nav-icon">⚙</span> Настройки
+        </a>
+      </nav>
+      <div class="profile-mini">
+        <div class="avatar">Н</div>
+        <div>
+          <div class="profile-name">Мой профиль</div>
+          <div class="profile-caption">Подготовка к ОГЭ</div>
+        </div>
+      </div>
+    </div>
+  </aside>
 
-    <a class="card" href="#" onclick="alert('Раздел физики скоро появится!');return false">
-      <div class="icon">⚛️</div>
-      <h3>Физика</h3>
-      <p>Формулы, законы природы и задачи с объяснениями.</p>
-      <span class="label">Скоро появится</span>
-    </a>
-  </div>
-</main>
+  <main class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="menu-button" id="menuButton"
+          aria-label="Открыть меню" aria-expanded="false">☰</button>
+        <div class="breadcrumb">Мой кабинет / Главная</div>
+      </div>
+      <div class="top-actions">
+        <span class="date-label" id="currentDate"></span>
+        <button class="icon-button" id="helpButton"
+          aria-label="Помощь" title="Помощь">?</button>
+      </div>
+    </header>
 
-<footer>
-  ОГЭ Навигатор · Учись в своём темпе · 2026
-</footer>
+    <section class="welcome">
+      <div>
+        <div class="eyebrow">ТВОЯ ПОДГОТОВКА</div>
+        <h1>Привет! 👋</h1>
+        <p>
+          Каждый день понемногу — и ты ближе к своей цели.<br>
+          Начнём с одного небольшого шага?
+        </p>
+      </div>
+      <div class="exam-card">
+        <div class="small-label">До ОГЭ осталось</div>
+        <div class="exam-value" id="countdown">—</div>
+        <div class="exam-note">Дата экзамена будет уточнена</div>
+      </div>
+    </section>
 
+    <section>
+      <div class="section-heading">
+        <h2>Мои предметы</h2>
+        <span class="small-label">4 предмета</span>
+      </div>
+
+      <div class="subjects">
+        <a class="subject-card" href="geography.html">
+          <div class="subject-symbol geo">🌍</div>
+          <div class="subject-title">География</div>
+          <div class="subject-subtitle">Карты, страны и задания ОГЭ</div>
+          <div class="subject-bottom">
+            <span>Пройдено тем</span><strong id="geoTopics">0</strong>
+          </div>
+        </a>
+
+        <a class="subject-card" href="#russian" data-soon="Русский язык">
+          <div class="subject-symbol rus">А</div>
+          <div class="subject-title">Русский язык</div>
+          <div class="subject-subtitle">Правила, тексты и грамотность</div>
+          <div class="subject-bottom">
+            <span>Пройдено тем</span><strong>0</strong>
+          </div>
+        </a>
+
+        <a class="subject-card" href="#math" data-soon="Математика">
+          <div class="subject-symbol math">＋</div>
+          <div class="subject-title">Математика</div>
+          <div class="subject-subtitle">Задачи, формулы и геометрия</div>
+          <div class="subject-bottom">
+            <span>Пройдено тем</span><strong>0</strong>
+          </div>
+        </a>
+
+        <a class="subject-card" href="#physics" data-soon="Физика">
+          <div class="subject-symbol phys">ϟ</div>
+          <div class="subject-title">Физика</div>
+          <div class="subject-subtitle">Формулы и задачи с нуля</div>
+          <div class="subject-bottom">
+            <span>Пройдено тем</span><strong>0</strong>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Твой день</h2>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>План на сегодня</h2>
+            <span class="tag" id="todaySubject">Загрузка</span>
+          </div>
+
+          <div class="lesson">
+            <div class="lesson-symbol" id="lessonSymbol">◎</div>
+            <div class="lesson-info">
+              <div class="lesson-title" id="lessonTitle">Подготовка к ОГЭ</div>
+              <div class="lesson-subtitle" id="lessonDescription">
+                Одно занятие на 45–60 минут
+              </div>
+            </div>
+            <a class="primary-button" id="startLesson" href="geography.html">
+              Начать
+            </a>
+          </div>
+
+          <div class="small-label" id="lessonNote">
+            Выполни занятие, чтобы поддержать свою серию.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Мой стрик</h2>
+            <span class="tag">Регулярность</span>
+          </div>
+
+          <div class="streak-top">
+            <div style="font-size:32px">🔥</div>
+            <div>
+              <div class="streak-number" id="streakCount">0</div>
+              <div class="streak-caption">дней подряд</div>
+            </div>
+          </div>
+
+          <div class="small-label">Твоя неделя</div>
+          <div class="week" id="weekCalendar"></div>
+
+          <div class="streak-message" id="streakMessage">
+            Выполни первое занятие, чтобы начать свою серию.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Мой прогресс</h2>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="panel">
+          <div class="small-label">Завершённые темы</div>
+          <div class="stat-value" id="totalTopics">0</div>
+          <div class="stat-description">
+            Темы будут учитываться после прохождения занятий.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="small-label">Решённые задания</div>
+          <div class="stat-value" id="totalTasks">0</div>
+          <div class="stat-description">
+            Здесь появится история твоей практики.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="small-label">Не пропусти</div>
+          <div class="stat-value" style="font-size:19px">Повторение</div>
+          <div class="stat-description">
+            Позже здесь появятся темы для повторения и пробные ОГЭ.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      ОГЭ Навигатор · Твой путь к результату
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    // Расписание занятий
+    const schedule = {
+      0: {
+        name: "География",
+        title: "Занятие по географии",
+        description: "Карты, задания и подготовка к ОГЭ",
+        symbol: "◎",
+        href: "geography.html"
+      },
+      1: {
+        name: "Русский язык",
+        title: "Занятие по русскому языку",
+        description: "Правила и практика",
+        symbol: "А",
+        href: "#russian"
+      },
+      2: {
+        name: "Математика",
+        title: "Занятие по математике",
+        description: "Вычисления и задачи",
+        symbol: "＋",
+        href: "#math"
+      },
+      3: {
+        name: "Физика",
+        title: "Занятие по физике",
+        description: "Формулы и задачи",
+        symbol: "ϟ",
+        href: "#physics"
+      },
+      4: {
+        name: "Русский язык",
+        title: "Занятие по русскому языку",
+        description: "Грамматика и пунктуация",
+        symbol: "А",
+        href: "#russian"
+      },
+      5: {
+        name: "Математика",
+        title: "Занятие по математике",
+        description: "Геометрия и практика",
+        symbol: "＋",
+        href: "#math"
+      },
+      6: {
+        name: "Физика",
+        title: "Занятие по физике",
+        description: "Закрепление пройденного",
+        symbol: "ϟ",
+        href: "#physics"
+      }
+    };
+
+    // Временное локальное хранение прогресса в браузере.
+    const STORAGE_KEY = "ogeNavigatorProgressV1";
+
+    function loadProgress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && typeof saved === "object") return saved;
+      } catch (error) {}
+      return { studyDays: [], tasks: 0, topics: 0 };
+    }
+
+    let progress = loadProgress();
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+        return true;
+      } catch (error) {
+        showToast("Не удалось сохранить данные в этом браузере.");
+        return false;
+      }
+    }
+
+    function localDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function getStreak() {
+      const days = new Set(progress.studyDays || []);
+      const cursor = new Date();
+      cursor.setHours(12, 0, 0, 0);
+
+      if (!days.has(localDateKey(cursor))) {
+        cursor.setDate(cursor.getDate() - 1);
+        if (!days.has(localDateKey(cursor))) return 0;
+      }
+
+      let streak = 0;
+      while (days.has(localDateKey(cursor))) {
+        streak++;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      return streak;
+    }
+
+    function renderCalendar() {
+      const container = $("weekCalendar");
+      container.innerHTML = "";
+      const today = new Date();
+      const mondayOffset = (today.getDay() + 6) % 7;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - mondayOffset);
+
+      const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+      const days = new Set(progress.studyDays || []);
+
+      labels.forEach((label, index) => {
+        const date = new Date(monday);
+        date.setDate(monday.getDate() + index);
+        const key = localDateKey(date);
+
+        const item = document.createElement("div");
+        item.className = "day";
+        item.innerHTML = `
+          <div>${label}</div>
+          <div class="day-dot ${key === localDateKey(today) ? "today" : ""}">
+            ${days.has(key) ? "✓" : date.getDate()}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.hidden = false;
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => {
+        toast.hidden = true;
+      }, 3200);
+    }
+
+    function render() {
+      const now = new Date();
+
+      $("currentDate").textContent = now.toLocaleDateString("ru-RU", {
+        day: "numeric",
+        month: "long",
+        weekday: "short"
+      });
+
+      const lesson = schedule[now.getDay()];
+      $("todaySubject").textContent = lesson.name;
+      $("lessonTitle").textContent = lesson.title;
+      $("lessonDescription").textContent = lesson.description;
+      $("lessonSymbol").textContent = lesson.symbol;
+      $("startLesson").href = lesson.href;
+
+      const streak = getStreak();
+      $("streakCount").textContent = streak;
+      $("streakMessage").textContent = streak
+        ? `Отлично! Ты занимаешься ${streak} ${streak === 1 ? "день" : streak < 5 ? "дня" : "дней"} подряд. Продолжай!`
+        : "Выполни первое занятие, чтобы начать свою серию.";
+
+      $("totalTopics").textContent = Number(progress.topics) || 0;
+      $("totalTasks").textContent = Number(progress.tasks) || 0;
+      $("geoTopics").textContent =
+        Number(progress.geographyTopics) || 0;
+
+      renderCalendar();
+    }
+
+    // Отмечаем занятие выполненным только по отдельному действию.
+    // Кнопка доступна в панели дня, не при обычном открытии страницы.
+    const completeButton = document.createElement("button");
+    completeButton.className = "secondary-button";
+    completeButton.textContent = "Отметить занятие";
+    completeButton.style.marginTop = "16px";
+    completeButton.addEventListener("click", () => {
+      const today = localDateKey(new Date());
+      progress.studyDays = Array.isArray(progress.studyDays)
+        ? progress.studyDays
+        : [];
+
+      if (progress.studyDays.includes(today)) {
+        showToast("Сегодняшнее занятие уже отмечено.");
+        return;
+      }
+
+      progress.studyDays.push(today);
+      if (saveProgress()) {
+        render();
+        showToast("Занятие отмечено! Серия обновлена.");
+      }
+    });
+
+    const streakPanel = document.querySelector(".streak-message");
+    streakPanel.insertAdjacentElement("afterend", completeButton);
+
+    $("menuButton").addEventListener("click", () => {
+      const sidebar = $("sidebar");
+      const isOpen = sidebar.classList.toggle("open");
+      $("menuButton").setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.querySelectorAll(".nav-link").forEach((item) => {
+          item.classList.remove("active");
+        });
+        link.classList.add("active");
+        $("sidebar").classList.remove("open");
+        $("menuButton").setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.querySelectorAll("[data-soon]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        showToast(`Раздел «${link.dataset.soon}» добавим следующим этапом.`);
+        $("sidebar").classList.remove("open");
+        $("menuButton").setAttribute("aria-expanded", "false");
+      });
+    });
+
+    $("helpButton").addEventListener("click", () => {
+      showToast("Выбери предмет или начни с занятия на сегодня.");
+    });
+
+    render();
+  </script>
 </body>
 </html>
